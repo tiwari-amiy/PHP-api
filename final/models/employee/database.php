@@ -5,7 +5,8 @@
 
     function __construct() {
       if (!$this->db) {
-        $this->db = new mysqli('127.0.0.1','root','','notes');
+        // write the connection parameters
+        $this->db = new mysqli();
       }
     }
 
