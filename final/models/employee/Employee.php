@@ -1,11 +1,12 @@
 <?php
-  include 'database.php';
 
+  namespace drmonkeyninja\final\models\employee;
   // Employee model
-  class Employee extends Database {
+  class Employee {
 
     //Table
     private $table = "employee";
+    protected $db;
 
     //Attributes
     private $id;
@@ -19,20 +20,30 @@
 
     // Create connection to Database
     function __construct() {
-      parent::__construct();
+      if (!$this->db) {
+        // write the connection parameters
+        $this->db = mysqli_connect('127.0.0.1','root','','notes');
+      }
     }
 
     // Set attribute values
     public function setvalue( $name = "", $email = "", $designation = "", $joining_date = "") {
+      if (empty($name)) return False;
+      if (empty($email)) return False;
+      if (empty($designation)) return False;
+      if (empty($joining_date)) return False;
       $this->name = $name;
       $this->email = $email;
       $this->designation = $designation;
       $this->joining_date = $joining_date;
+      return True;
     }
 
     // Set id of Employee
     public function set_id($id) {
+      if ($id <= 0) return False;
       $this->id = $id;
+      return True;
     }
 
     // Get all Employee from database
